@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <!-- Site Title-->
+    <title>Home</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,200;0,300;0,500;0,600;1,300&amp;display=swap">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  </head>
+  <body>
+    <!-- Page-->
+    <div class="page">
+      <!-- Page Header-->
+      <header class="page-header">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar novi-bg novi-bg-img" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-sm-device-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-stick-up-clone="false" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true" data-lg-stick-up-offset="69px" data-xl-stick-up-offset="1px" data-xxl-stick-up-offset="1px">
+            <div class="rd-navbar-inner">
+              <!-- RD Navbar Panel-->
+              <div class="rd-navbar-panel">
+                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                <!-- RD Navbar Brand-->
+                <div class="rd-navbar-brand">
+                  <!-- Brand--><a class="brand" href="index.html">Futureverse</a>
+                </div>
+              </div>
+              <!-- RD Navbar Nav-->
+              <div class="rd-navbar-nav-wrap">
+                <ul class="rd-navbar-nav">
+                  <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">Home</a></li>
+                  <li class="rd-nav-item"><a class="rd-nav-link" href="/signup">Sign Up</a></li>
+                  <li class="rd-nav-item"><a class="rd-nav-link" href="/login">Log In</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+    <div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h4> Login</h4>
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
+
+    <form action="/login" method="post">
+        <div>
+            <label>Email</label>
+            <input type="text" class="form-control" name="email">
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <br>
+        <button type="submit" style="border: 1px solid black">Login</button>
+    </form>
+  </div>
+</div>
+
+    <hr>
+      <!-- Page Footer-->
+      <footer>
+        <div class="pre-footer-corporate novi-bg novi-bg-img">
+          <div class="container">
+            <div class="row justify-content-sm-center justify-content-lg-start row-30 row-md-60">
+              <div class="col-sm-10 col-md-6 col-lg-10 col-xl-3">
+                <h6>About</h6>
+                <p>Monstroid² is HTML template that fits both developers and beginners. It comes loaded with an assortment of tools and features that make customization process much easier. A pack of child themes, specially designed for various business niches, allows users to create a fully functional site for any specific business quickly and worry-free.</p>
+              </div>
+              <div class="col-sm-10 col-md-6 col-lg-3 col-xl-3">
+                <h6>Navigation</h6>
+                <ul class="list-xxs">
+                  <li><a href="about.html">About</a></li>
+                  <li><a href="our-team.html">Our Team</a></li>
+                  <li><a href="services.html">Services</a></li>
+                  <li><a href="event-list.html">Events</a></li>
+                  <li><a href="classic-blog.html">Blog</a></li>
+                </ul>
+              </div>
+              <div class="col-sm-10 col-md-6 col-lg-5 col-xl-3">
+                <h6>Recent Comments</h6>
+                <ul class="list-xs">
+                  <li>
+                    <!-- Comment minimal-->
+                    <article class="comment-minimal">
+                      <p class="comment-minimal__author">Brian Williamson on</p>
+                      <p class="comment-minimal__link"><a href="standard-post.html">Site Speed and Search Engines Optimization Aspects</a></p>
+                    </article>
+                  </li>
+                  <li>
+                    <!-- Comment minimal-->
+                    <article class="comment-minimal">
+                      <p class="comment-minimal__author">Brian Williamson on</p>
+                      <p class="comment-minimal__link"><a href="standard-post.html">5 Things to Know Before You Buy an HTML Template</a></p>
+                    </article>
+                  </li>
+                  <li>
+                    <!-- Comment minimal-->
+                    <article class="comment-minimal">
+                      <p class="comment-minimal__author">Brian Williamson on</p>
+                      <p class="comment-minimal__link"><a href="standard-post.html">Turning Your Site into a Sales Machine</a></p>
+                    </article>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-10 col-md-6 col-lg-4 col-xl-3">
+                <h6>Contacts</h6>
+                <ul class="list-xs">
+                  <li>
+                    <dl class="list-terms-minimal">
+                      <dt>Address</dt>
+                      <dd>4578 Marmora Road, Glasgow, D04 89GR</dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl class="list-terms-minimal">
+                      <dt>Phones</dt>
+                      <dd>
+                        <ul class="list-semicolon">
+                          <li><a href="tel:#">(800) 123-0045</a></li>
+                          <li><a href="tel:#">(800) 123-0045</a></li>
+                        </ul>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl class="list-terms-minimal">
+                      <dt>E-mail</dt>
+                      <dd><a href="mailto:#">info@demolink.org</a></dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl class="list-terms-minimal">
+                      <dt>We are open</dt>
+                      <dd>Mn-Fr: 10 am-8 pm</dd>
+                    </dl>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-corporate novi-bg novi-bg-img">
+          <div class="container">
+            <div class="footer-corporate__inner">
+              <p class="rights"><span>Monstroid&#178;</span><span>&nbsp;</span><span class="copyright-year"></span>.</p>
+              <ul class="list-inline-xxs">
+                <li><a class="icon novi-icon icon-xxs icon-primary fa fa-facebook" href="#"></a></li>
+                <li><a class="icon novi-icon icon-xxs icon-primary fa fa-twitter" href="#"></a></li>
+                <li><a class="icon novi-icon icon-xxs icon-primary fa fa-google-plus" href="#"></a></li>
+                <li><a class="icon novi-icon icon-xxs icon-primary fa fa-vimeo" href="#"></a></li>
+                <li><a class="icon novi-icon icon-xxs icon-primary fa fa-youtube" href="#"></a></li>
+                <li><a class="icon novi-icon icon-xxs icon-primary fa fa-pinterest" href="#"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- Javascript-->
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
