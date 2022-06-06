@@ -24,6 +24,9 @@ Array.from(thumbUp).forEach(function(element) {
           console.log(data)
           window.location.reload(true)
         })
+
+
+        
       });
 });
 

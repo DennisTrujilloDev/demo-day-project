@@ -1,1 +1,8 @@
 # demo-day-project
+
+<!-- freesound.org -->
+
+<!-- https://github.com/ospfranco/link-preview-js#readme -->
+<!-- to display articles -->
+
+<!-- http://localhost:7333/article?chosenCountry=ng -->
