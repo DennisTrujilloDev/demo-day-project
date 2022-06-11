@@ -1,6 +1,7 @@
-module.exports = function (app, passport, db) {
+module.exports = function (app, passport, db, ObjectId) {
   // normal routes ===============================================================
-
+  
+  const apiKey = "7625170bc33b1fe3194db78b1ed38216";
   // show the home page (will also have our login links)
   app.get("/", function (req, res) {
     res.render("index.ejs");
@@ -33,22 +34,21 @@ module.exports = function (app, passport, db) {
 
   //sending country name via query params to back end & fetching articles from mediastack========================================================================================
 
-  const apiKey = "7625170bc33b1fe3194db78b1ed38216";
   app.get("/country", function (req, res) {
     console.log("QPARAM IS", req.query);
     //this ^^ will say {countryName:ng}
     res.send({ message: req.query });
   });
-
+  
   // db.collection.insertMany(
-  //   [ <document 1> , <document 2>, ... ],
-  //   {
-  //      writeConcern: <document>,
-  //      ordered: <boolean>
-  //   }
-  // )
-
-  app.get("/article", async (req, res) => {
+    //   [ <document 1> , <document 2>, ... ],
+    //   {
+      //      writeConcern: <document>,
+      //      ordered: <boolean>
+      //   }
+      // )
+      
+    app.get("/article", async (req, res) => {
     //iso country code in lowercase letters
     let foundItems = await db
     .collection("demoFirstCol")
@@ -83,13 +83,28 @@ module.exports = function (app, passport, db) {
     // res.send({articles: db.demoFirstCol.find({})})
   });
 
-  app.put("/likeArticle", (req, res) => {
+  //taking end point and plugging in ID of article and sends article id to mongo into array of each user 
+  app.put("/like", (req, res) => {
+    let incrCategory =  {}
+    incrCategory['categoryLikeCount.' + req.body.articleCategory] = 1
+    console.log(" INCRCAT INFO", incrCategory)
+    console.log(req.body,"REQ NAME")
+    // { articleId: '629d08ef4bc204429cc73ad5', userEmail: '456@456.com' } REQ NAME
     db.collection("users").findOneAndUpdate(
-      { userID: req.body.name, msg: req.body.msg },
+      // {local : {email: req.body.userEmail}},
+      {"local.email": req.body.userEmail},
+      // {local: req.body.userEmail},
+
+      // {email: req.body.userEmail},
+      
       {
-        $set: {
-          thumbUp: req.body.thumbUp + 1,
+        $addToSet: {
+          // articleName:
+          // send other info about articles here^^^^
+          liked: req.body.articleId 
+          // req.body.thumbUp + 1,
         },
+        $inc: incrCategory
       },
       {
         sort: { _id: -1 },
@@ -100,6 +115,76 @@ module.exports = function (app, passport, db) {
         res.send(result);
       }
     );
+  });
+
+
+  //app.get dashboard 
+  // for each article that has been liked (users collection) grab the info for that article from the other collection and display it on dashboard page by sending it to ejs file
+  //1. retrieve user profile 
+  //2. grab array of articles from liked set
+  //3. retrieve all articles from demo firstdemocoll (match ids)
+  //4. render faveArticles EJS page 
+  app.get("/dashboard", isLoggedIn, function (req, res) {
+    //if /profile chnages to /favorites then res.render name changes and the nwould use favorites route on localhost:xxxx/favorites
+    //   db.collection("").find( { _id : { $in : [req.user.liked] } } );
+    console.log("DASHBOARD REQ USER IS", req.user);
+
+
+    let liked = req.user.liked.map((likedArticle)=>{
+      let objid = new ObjectId(likedArticle)
+      console.log(objid);
+      return objid
+    })
+    console.log("dashboard Liked is", liked);
+
+    //this turns strings of article ids to object id
+    db.collection("demoFirstCol")
+    .find( { _id : { $in : liked } })
+    .toArray((err, result) => {
+      if (err) return console.log(err);
+      console.log("result issssss", result);
+        res.render("dashboard.ejs", {
+          user: req.user,
+          likedArticles: result,
+        });
+      });
+  });
+
+
+  //send all liked articles to faveArticles.ejs
+  app.get("/article", async (req, res) => {
+    //iso country code in lowercase letters
+    let foundItems = await db
+    .collection("demoFirstCol")
+    .find({ country: req.query.chosenCountry })
+    .toArray();
+    if (foundItems.length === 0) {
+      const url = `http://api.mediastack.com/v1/news?access_key=${apiKey}&countries=${req.query.chosenCountry}&languages=en`;
+      // urlLink = data.data[0].url;
+      const response = await fetch(url);
+      const data = await response.json();
+      news = data.data
+      const numArticles = news.length >= 15 ? 15 : news.length
+          
+      for(let i=0; i<numArticles; i++){
+      // for (let i = 0; i < 15; i++) {
+       await db.collection("demoFirstCol").insertOne(
+          { ...news[i], likes: 0 },
+          (err, result) => {
+            if (err) return console.log(err);
+            console.log("saved to database");
+          }
+        );
+      }
+
+     foundItems = await db.collection("demoFirstCol")
+        .find({ country: req.query.chosenCountry })
+        .toArray()
+      console.log("FOUND = ", foundItems);
+    }
+    res.send({ foundItems });
+
+    // res.send({articles: db.demoFirstCol.find({})})
   });
 
 

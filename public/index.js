@@ -100,38 +100,63 @@ const countries = L.geoJSON(COUNTRY_GEOJSON, {
 
             const articleFave = document.createElement("button");
             articleFave.setAttribute("value", "0");
-            articleFave.setAttribute("data-id", "0");
+            articleFave.setAttribute("data-id", news[i]._id);
+            articleFave.setAttribute("data-cat", news[i].category )
             articleFave.setAttribute("class", "likeButtons");
-
             const textFave = document.createTextNode("Like");
             articleFave.appendChild(textFave);
             document.getElementById("articlesHere").appendChild(articleFave);
+
+
+
+            articleFave.addEventListener("click", function () {
+              let userEmail = document.querySelector("#userEmail").innerText
+              // let category = document.querySelector("textCat")
+              // ^^SELECT ARTICLES INFO AND SEDN HERE 
+              console.log("buttonid", articleFave.dataset.id);
+              console.log("CAT INFO", news[i].category)
+              fetch("like", {
+                method: "put",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                articleId: articleFave.dataset.id,
+                articleCategory: articleFave.dataset.cat,
+                userEmail: userEmail
+                }),
+              })
+                .then((response) => {
+                  if (response.ok) return response.json();
+                })
+                .then((data) => {
+                  console.log(data);
+                  // window.location.reload(true);
+                });
+                // res.redirect("/profile");
+            });
           }
         });
     });
   },
 });
 
-const parentEle = document.querySelector("#articlesHere");
-parentEle.addEventListener("click", function (event) {
-  if (event.target.className === "likeButtons") {
-    console.log("hi");
-    
+// const parentEle = document.querySelector("#faveArticlesHere");
+// parentEle.addEventListener("click", function (event) {
+//   if (event.target.className === "likeButtons") {
 
-    // fetch('messages', {
-    //   method: 'delete',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     'name': name,
-    //     'msg': msg,
-    //   })
-    // }).then(function (response) {
-    //   window.location.reload()
-    // })
-  }
-});
+//     fetch('messages', {
+//       method: 'delete',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         'name': name,
+//         'msg': msg,
+//       })
+//     }).then(function (response) {
+//       window.location.reload()
+//     })
+//   }
+// });
 //country_geojson is var created in countryGEOJSON.js which has info from geojson website
 map.addLayer(countries);
 

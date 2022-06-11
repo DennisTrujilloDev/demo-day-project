@@ -1,4 +1,4 @@
-const thumbUp = document.getElementsByClassName("fa-thumbs-up");
+const like = document.getElementsByClassName("likeButtons");
 const thumbDown = document.getElementsByClassName("fa-thumbs-down");
 const trash = document.getElementsByClassName("fa-trash");
 
@@ -8,7 +8,7 @@ Array.from(thumbUp).forEach(function(element) {
         const msg = this.parentNode.parentNode.childNodes[3].innerText
         let thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
         thumbUp++
-        fetch('messages', {
+        fetch('like', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
